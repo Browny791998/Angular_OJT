@@ -7,6 +7,7 @@ import { UserListComponent } from './user-list/user-list.component';
 const routes: Routes = [
   { path: 'users', component:UserListComponent },
   { path: 'register', component:RegisterFormComponent},
+  { path: 'register/:id', component:RegisterFormComponent},
   { path: 'logout', redirectTo:'/'},
 ];
 

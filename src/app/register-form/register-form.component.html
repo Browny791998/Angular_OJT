@@ -82,6 +82,26 @@
 </div>
 <br>
 
+<h4>Role</h4>
+<mat-form-field appearance="fill">
+  <mat-select formControlName="role" required>
+   
+    <mat-option [value]="'Manager'">
+   Manager
+    </mat-option>
+    <mat-option [value]="'Member'">
+    Member
+     </mat-option>
+     <mat-option [value]="'User'">
+    User
+     </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="role?.invalid && role?.touched" style="color: red;">
+  <small *ngIf="role?.errors?.['required']" >Role is required</small>
+</div>
+<br>
+
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dob" required>
@@ -94,27 +114,29 @@
       </div>
       <br><br>
       
-      <mat-label class="hobbyLbl">Hobby</mat-label>
-        <section class="example-section">
-            
-            <mat-checkbox class="example-margin" name="Hobby" formControlName="hobby">Swimming</mat-checkbox>
-            <mat-checkbox class="example-margin" name="Hobby" formControlName="hobby">Reading</mat-checkbox>
-            <mat-checkbox class="example-margin" name="Hobby" formControlName="hobby">Cooking</mat-checkbox>
-          </section>
-          <div *ngIf="hobby?.invalid && hobby?.touched" style="color: red;">
-            <small *ngIf="hobby?.errors?.['required']" >Hobby is required</small>
+          <mat-label class="hobbyLbl">Hobby</mat-label>
+          <div *ngFor="let data of Hobbies; let i=index">
+               <span>
+              <input type="checkbox" [value]="data.value" (change)="onCheckboxChange($event)" required [checked]="tempUser[0].hobby.indexOf(data.value) !== -1"/>
+              {{data.name}}
+            </span>
           </div>
+      
+          <p style="color: red;" class="error" *ngIf="this.registrationForm.controls['hobby'].errors?.['required']" >
+            Checkbox is required, select atleast one value.
+          </p>
 
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Description</mat-label>
-        <textarea matInput rows="8" cols="18" #des (keyup)="checkWord(des.value)"></textarea>
+        <textarea matInput rows="8" cols="18" #des (keyup)="checkWord(des.value)" formControlName="description"></textarea>
       </mat-form-field>
       <div  style="color: red;">
         <small *ngIf="wordError" >Word not over 1500</small>
       </div>
 
       <button mat-raised-button color="warn" style="margin-right: 10px;">Reset</button>
-      <button mat-raised-button color="primary" [disabled]="registrationForm.invalid" >Register</button>
+      <button mat-raised-button color="primary" [disabled]="registrationForm.invalid" (click)="Register(registrationForm)" [ngStyle]="{display:showRegisterBtn}">Register</button>
+      <button mat-raised-button color="primary" [disabled]="registrationForm.invalid"  [ngStyle]="{display:showUpdateBtn}">Update</button>
   </form>
 
  
