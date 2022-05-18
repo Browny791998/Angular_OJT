@@ -2,6 +2,7 @@ import { Component,ViewChild,OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -27,7 +28,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-
+  constructor(private router:Router) { }
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -36,6 +37,9 @@ export class UserListComponent implements OnInit {
   ngOnInit(){
     this.dataSource.sort= this.sort;
     this.dataSource.paginator = this.paginator;
+    if(sessionStorage.getItem("email")==null){
+      this.router.navigate(["logout"]);
+    }
   }
 
   applyFilter(filterValue:string){

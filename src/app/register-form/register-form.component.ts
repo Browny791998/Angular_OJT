@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, Form, FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { retry } from 'rxjs';
+import { requireCheckboxesToBeCheckedValidator } from './require-checkboxes-to-be-checked.validator';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css']
 })
-export class RegisterFormComponent{
+export class RegisterFormComponent implements OnInit{
    
-    wordError = false;
+  ngOnInit(): void {
+    if(sessionStorage.getItem("email")==null){
+      this.router.navigate(["logout"]);
+    }
+  }
+  wordError = false;
   hide = true;
   get name() {
     return this.registrationForm?.get('userName');
@@ -43,13 +50,9 @@ export class RegisterFormComponent{
     return this.registrationForm?.get('description');
   }
 
-  // ValidateWords(control: AbstractControl): { [key: string]: boolean } | null {
-  //   const des = control.get('description');
-  //   if (des!.pristine) {
-  //     return null;
-  //   }
-  //   return des &&  password.value !== confirmPassword.value ? { 'misMatch': true } : null;
-  // }
+  get CheckBoxGroup(){
+    return this.registrationForm?.get('myCheckboxGroup');
+  }
  
    registrationForm = this.fb.group({
       userName: ['admin', Validators.required],
@@ -61,7 +64,7 @@ export class RegisterFormComponent{
       team: ['', [Validators.required]],
       dob: ['', [Validators.required]],
       hobby: ['', [Validators.required]],
-      description: ['']
+      description: [''],
     },
   
       {
@@ -86,15 +89,7 @@ export class RegisterFormComponent{
   }
 
 
-  // isOver(controlName:string){
-  //   return(formGroup:FormGroup)=>{
-  //     const control = formGroup.controls[controlName];
-  //    alert(control);
-  //   }
-  // }
-
-
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private router:Router) { }
   
 
   checkWord(des: any) {
