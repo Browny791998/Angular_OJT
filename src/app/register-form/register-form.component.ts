@@ -132,10 +132,6 @@ export class RegisterFormComponent implements OnInit {
         return this.registrationForm?.get('dob');
     }
 
-    // get hobby() {
-    //   return this.registrationForm?.get('hobby');
-    // }
-
     get description() {
         return this.registrationForm?.get('description');
     }
@@ -164,10 +160,12 @@ export class RegisterFormComponent implements OnInit {
 
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private user: UserService) { }
-
+    
+    userArray:any=[];
     Register(data: any) {
+       this.userArray = this.user.getUsers();
         this.user.AddUser({
-            id: this.user.getUsers().length + 1,
+            id: this.userArray[this.userArray.length-1].id+1,
             name: data.value.userName,
             password: data.value.password,
             email: data.value.email,
@@ -179,7 +177,13 @@ export class RegisterFormComponent implements OnInit {
             DOB: data.value.dob,
             CreatedAt: new Date()
         });
+        this.router.navigate(["users"]);
     }
+
+    onUpdate(id:number,data:any){
+        this.user.UpdateUser(id,data);
+        this.router.navigate(["users"]);
+     }  
 
     checkWord(des: any) {
 

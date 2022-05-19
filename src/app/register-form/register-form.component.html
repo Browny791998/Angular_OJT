@@ -136,7 +136,7 @@
 
       <button mat-raised-button color="warn" style="margin-right: 10px;">Reset</button>
       <button mat-raised-button color="primary" [disabled]="registrationForm.invalid" (click)="Register(registrationForm)" [ngStyle]="{display:showRegisterBtn}">Register</button>
-      <button mat-raised-button color="primary" [disabled]="registrationForm.invalid"  [ngStyle]="{display:showUpdateBtn}">Update</button>
+      <button mat-raised-button color="primary" [disabled]="registrationForm.invalid"  [ngStyle]="{display:showUpdateBtn}" (click)="onUpdate(tempUser[0].id,registrationForm)">Update</button>
   </form>
 
  
