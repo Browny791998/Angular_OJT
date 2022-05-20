@@ -49,3 +49,8 @@ h1{
     margin: 0 auto;
     padding:20px;
 }
+
+.registerLink{
+    margin-left: 720px;
+    text-decoration: none;
+}

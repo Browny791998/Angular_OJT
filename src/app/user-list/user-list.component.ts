@@ -14,10 +14,6 @@ export interface Iuser {
     CreatedAt: Date;
 }
 var date = new Date();
-// const ELEMENT_DATA: Iuser[] = [
-//   {id:1, name: 'Johny', gender: 'Male',team:'PHP',hobby:'Reading',DOB: new Date(1995, 11, 17),CreatedAt: new Date()},
-//   {id:2, name: 'Cathy', gender: 'Female',team:'Java',hobby:'Cooking',DOB: new Date(1995, 11, 17),CreatedAt:new Date()},
-// ];
 
 @Component({
     selector: 'app-user-list',
@@ -51,13 +47,11 @@ export class UserListComponent implements OnInit {
         this.router.navigate(['/register', user.id])
     }
 
-    deleteUser(a:any){
-        if(confirm("Are you sure?Do you want to delete this user")==true){
+    deleteUser(a: any) {
+        if (confirm("Are you sure? Do you want to delete this user") == true) {
             this.user.DeleteUser(a.id);
             this.userarr = this.user.getUsers();
             this.dataSource = new MatTableDataSource(this.userarr);
         }
-        
-       
     }
 }

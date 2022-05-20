@@ -4,13 +4,12 @@
       <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </button>
     <h1>CRUD form </h1>
-
   </mat-toolbar-row>
 </mat-toolbar>
 
 
 <mat-sidenav-container [ngStyle]="{display:showNav}">
-  <mat-sidenav #sidenav opened="true" mode="side" >
+  <mat-sidenav #sidenav opened="true" mode="side">
     <mat-nav-list>
       <a routerLink="/register" mat-list-item>Register</a>
       <a routerLink="/users" mat-list-item>User List</a>
@@ -26,26 +25,26 @@
 </mat-sidenav-container>
 <div [ngStyle]="{display:hideLogin}">
 
-<form class="loginForm" [formGroup]="loginForm">
-  <h1>Login</h1>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput placeholder="Email" formControlName="email" required="" formgroupnam>
-  </mat-form-field>
-  <div *ngIf="email?.invalid && email?.touched" style="color: red;">
-    <small *ngIf="email?.errors?.['required']" >Email is required</small>
-    <small *ngIf="email?.errors?.['pattern']" >Email is invalid</small>
-  </div>
+  <form class="loginForm" [formGroup]="loginForm">
+    <h1>Login</h1>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email" required="" formgroupnam>
+    </mat-form-field>
+    <div *ngIf="email?.invalid && email?.touched" style="color: red;">
+      <small *ngIf="email?.errors?.['required']">Email is required</small>
+      <small *ngIf="email?.errors?.['pattern']">Email is invalid</small>
+    </div>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Password</mat-label>
-    <input matInput placeholder="Password" type="password" formControlName="password">
-  </mat-form-field>
-  <div *ngIf="password?.invalid && password?.touched" style="color: red;">
-    <small *ngIf="password?.errors?.['required']" >Password is required</small>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Password" type="password" formControlName="password">
+    </mat-form-field>
+    <div *ngIf="password?.invalid && password?.touched" style="color: red;">
+      <small *ngIf="password?.errors?.['required']">Password is required</small>
 
-  </div>
-  <button mat-raised-button color="primary" (click)="Login(loginForm.value)" type="button" >Login</button><br>
+    </div>
+    <button mat-raised-button color="primary" (click)="Login(loginForm.value)" type="button">Login</button><br>
   </form>
-<a color="primary" routerLink="/register" (click)="Register()">Register here</a>
+  <a color="primary" routerLink="/register" (click)="Register()" class="registerLink">Register here</a>
 </div>

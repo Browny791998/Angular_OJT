@@ -13,6 +13,43 @@ import { UserService } from '../user.service';
 
 
 export class RegisterFormComponent implements OnInit {
+    wordError = false;
+    hide = true;
+    get name() {
+        return this.registrationForm?.get('userName');
+    }
+    get email() {
+        return this.registrationForm?.get('email');
+    }
+    get password() {
+        return this.registrationForm?.get('password');
+    }
+
+    get confirmPassword() {
+        return this.registrationForm?.get('confirmPassword');
+    }
+    get gender() {
+        return this.registrationForm?.get('gender');
+    }
+    get team() {
+        return this.registrationForm?.get('team');
+    }
+    get role() {
+        return this.registrationForm?.get('role');
+    }
+
+    get dob() {
+        return this.registrationForm?.get('dob');
+    }
+
+    get description() {
+        return this.registrationForm?.get('description');
+    }
+
+    get CheckBoxGroup() {
+        return this.registrationForm?.get('myCheckboxGroup');
+    }
+
     showRegisterBtn = "";
     showUpdateBtn = "none";
     registrationForm = this.fb.group({
@@ -28,7 +65,6 @@ export class RegisterFormComponent implements OnInit {
         description: [''],
         hobby: this.fb.array([], Validators.required)
     },
-
         {
             validators: this.MustMatch('password', 'confirmPassword'),
         });
@@ -93,55 +129,12 @@ export class RegisterFormComponent implements OnInit {
             for (var j = 0; j < this.tempUser[0].hobby.length; j++) {
                 this.onCheckboxChange(this.tempUser[0].hobby[j]);
             }
-
         }
-
 
         if (sessionStorage.getItem("email") == null) {
             this.router.navigate(["logout"]);
         }
-
-
     }
-    wordError = false;
-    hide = true;
-    get name() {
-        return this.registrationForm?.get('userName');
-    }
-    get email() {
-        return this.registrationForm?.get('email');
-    }
-    get password() {
-        return this.registrationForm?.get('password');
-    }
-
-    get confirmPassword() {
-        return this.registrationForm?.get('confirmPassword');
-    }
-    get gender() {
-        return this.registrationForm?.get('gender');
-    }
-    get team() {
-        return this.registrationForm?.get('team');
-    }
-    get role() {
-        return this.registrationForm?.get('role');
-    }
-
-    get dob() {
-        return this.registrationForm?.get('dob');
-    }
-
-    get description() {
-        return this.registrationForm?.get('description');
-    }
-
-    get CheckBoxGroup() {
-        return this.registrationForm?.get('myCheckboxGroup');
-    }
-
-
-
 
     MustMatch(controlName: string, matchingControlName: string) {
         return (formGroup: FormGroup) => {
@@ -160,12 +153,12 @@ export class RegisterFormComponent implements OnInit {
 
 
     constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private user: UserService) { }
-    
-    userArray:any=[];
+
+    userArray: any = [];
     Register(data: any) {
-       this.userArray = this.user.getUsers();
+        this.userArray = this.user.getUsers();
         this.user.AddUser({
-            id: this.userArray[this.userArray.length-1].id+1,
+            id: this.userArray[this.userArray.length - 1].id + 1,
             name: data.value.userName,
             password: data.value.password,
             email: data.value.email,
@@ -180,19 +173,21 @@ export class RegisterFormComponent implements OnInit {
         this.router.navigate(["users"]);
     }
 
-    onUpdate(id:number,data:any){
-        this.user.UpdateUser(id,data);
+    onUpdate(id: number, data: any) {
+        this.user.UpdateUser(id, data);
         this.router.navigate(["users"]);
-     }  
+    }
+
+    reset(){
+        this.registrationForm.reset();
+    }
 
     checkWord(des: any) {
-
         const desarr = des.split(" ");
         if (desarr.length > 1499) {
             this.wordError = true
         } else {
             this.wordError = false
         }
-
     }
 }
